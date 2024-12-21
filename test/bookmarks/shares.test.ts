@@ -5,7 +5,7 @@ describe("Create, Get, Update and Delete Shares", () => {
 
     const client = setupBookmarkClient()
     let shareId: number
-    const shareeUserId = "testuser2"
+    const shareeUserId = process.env.NC_USER2
     let folderId: number
 
     test("Create Folder", async () => {

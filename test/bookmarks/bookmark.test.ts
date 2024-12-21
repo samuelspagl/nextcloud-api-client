@@ -50,7 +50,7 @@ describe("Create, Update, Get and Delete Bookmark", () => {
 test("Get Bookmark Image", async () => {
     const client = setupBookmarkClient()
 
-    const response = await client.getBookmarkImage(182)
+    const response = await client.getBookmarkImage(process.env.BOOKMARK_ID_IMAGE)
     expect(response).toBeInstanceOf(Blob)
     const fileUrl = URL.createObjectURL(response);
 })
@@ -58,7 +58,7 @@ test("Get Bookmark Image", async () => {
 test("Get Bookmark Favicon", async () => {
     const client = setupBookmarkClient()
 
-    const response = await client.getBookmarkFavicon(181)
+    const response = await client.getBookmarkFavicon(process.env.BOOKMARK_ID_IMAGE)
     expect(response).toBeInstanceOf(Blob)
     const fileUrl = URL.createObjectURL(response);
 });
