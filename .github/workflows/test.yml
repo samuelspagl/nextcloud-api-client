@@ -12,3 +12,6 @@ jobs:
       # run any `bun` or `bunx` command
       - run: bun install
       - run: bun test --coverage
+        env:
+          NC_PASSWORD1: ${{ secrets.NC_PASSWORD1 }}
+          NC_PASSWORD2: ${{ secrets.NC_PASSWORD2 }}
