@@ -4,6 +4,7 @@ jobs:
   bun-test:
     name: Bun Testing
     runs-on: ubuntu-latest
+    environment:  Testing - Env
     steps:
       # ...
       - uses: actions/checkout@v4
