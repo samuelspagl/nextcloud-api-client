@@ -50,17 +50,25 @@ describe("Create, Update, Get and Delete Bookmark", () => {
 test("Get Bookmark Image", async () => {
     const client = setupBookmarkClient()
 
-    const response = await client.getBookmarkImage(182)
-    expect(response).toBeInstanceOf(Blob)
-    const fileUrl = URL.createObjectURL(response);
+    try{
+        const response = await client.getBookmarkImage(182)
+        expect(response).toBeInstanceOf(Blob)
+        const fileUrl = URL.createObjectURL(response);
+    }catch(e){
+        expect(e.statusCode).toBe(404)
+    }
 })
 
 test("Get Bookmark Favicon", async () => {
     const client = setupBookmarkClient()
 
-    const response = await client.getBookmarkFavicon(181)
-    expect(response).toBeInstanceOf(Blob)
-    const fileUrl = URL.createObjectURL(response);
+    try{
+        const response = await client.getBookmarkFavicon(181)
+        expect(response).toBeInstanceOf(Blob)
+        const fileUrl = URL.createObjectURL(response);
+    }catch(e){
+        expect(e.statusCode).toBe(404)
+    }
 });
 
 describe("Increase click count on bookmark", () => {

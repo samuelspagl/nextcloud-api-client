@@ -92,7 +92,7 @@ describe("Standard Deck Tests", () => {
     test("Update Card", async () => {
         const payload: UpdateCardPayload = {
             title: "Updated Card",
-            owner: process.env.NC_USER1,
+            owner: process.env.NC_USER,
             type: "plain",
             description: "Some description"
         }
