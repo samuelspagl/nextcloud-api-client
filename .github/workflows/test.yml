@@ -16,3 +16,7 @@ jobs:
         env:
           NC_PASSWORD1: ${{ secrets.NC_PASSWORD1 }}
           NC_PASSWORD2: ${{ secrets.NC_PASSWORD2 }}
+          NC_USER1: ${{ vars.NC_USER1 }}
+          NC_USER2: ${{ vars.NC_USER2 }}
+          NC_SERVER: ${{ vars.NC_SERVER }}
+          BOOKMARK_ID_IMAGE: ${{ vars.BOOKMARK_ID_IMAGE }}
