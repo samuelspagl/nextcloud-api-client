@@ -14,7 +14,7 @@ jobs:
       - run: bun install
       - run: bun test --coverage
         env:
-          NC_PASSWORD1: ${{ secrets.NC_PASSWORD1 }}
+          NC_PASSWORD: ${{ secrets.NC_PASSWORD1 }}
           NC_PASSWORD2: ${{ secrets.NC_PASSWORD2 }}
           NC_USER: ${{ vars.NC_USER1 }}
           NC_USER2: ${{ vars.NC_USER2 }}
