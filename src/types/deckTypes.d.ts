@@ -6,7 +6,7 @@
  * Represents a User within the system.
  * A User typically has a unique identifier and a display name.
  */
-interface DeckUser {
+export interface DeckUser {
     /** Unique identifier for the user in the system */
     primaryKey: string;
 
@@ -21,7 +21,7 @@ interface DeckUser {
 * Represents the Permissions available for a user or group on a given resource.
 * Permissions are typically used to define access control levels.
 */
-interface Permissions {
+export interface Permissions {
     /** Permission to read the resource */
     PERMISSION_READ: boolean;
 
@@ -38,7 +38,7 @@ interface Permissions {
 /**
 * Represents the Settings for a user or board, providing customization options.
 */
-interface DeckSettings {
+export interface DeckSettings {
     /** Notification setting for due dates, 'on' or 'off' */
     "notify-due": "off" | "on";
 
@@ -49,7 +49,7 @@ interface DeckSettings {
 /**
 * Represents a Label used to categorize or tag elements on a board.
 */
-interface Label {
+export interface Label {
     /** The title or name of the label */
     title: string;
 
@@ -69,7 +69,7 @@ interface Label {
 /**
 * Represents a Board which is a container for stacks and cards.
 */
-interface Board {
+export interface Board {
     /** The title of the board */
     title: string;
 
@@ -113,7 +113,7 @@ interface Board {
 /**
 * Represents a Stack, which is a collection of cards within a board.
 */
-interface Stack {
+export interface Stack {
     /** The title or name of the stack */
     title: string;
 
@@ -139,7 +139,7 @@ interface Stack {
 /**
 * Represents a Card, which can be assigned to a stack, and may have various attributes such as title, description, and due date.
 */
-interface Card {
+export interface Card {
     /** The title or name of the card */
     title: string;
 
@@ -199,7 +199,7 @@ interface Card {
 * Represents an Attachment associated with a card.
 * Attachments can be files or other resources linked to the card.
 */
-interface Attachment {
+export interface Attachment {
     /** The ID of the card this attachment belongs to */
     cardId: number;
 
@@ -299,8 +299,9 @@ export interface CreateCardPayload {
 }
 
 export interface UpdateCardPayload {
-    title?: string;
-    type?: string | "plain";
+    title: string;
+    type: "plain";
+    owner: string;
     order?: number;
     description?: string;
     duedate?: string | null;

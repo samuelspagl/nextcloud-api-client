@@ -1,13 +1,13 @@
-/**
- * *******************************************
- *                  MODELS
- * *******************************************    
- */
+//
+// *******************************************
+//                 MODELS
+// *******************************************    
+
 
 /**
  * Represents a bookmark within Nextcloud.
  */
-interface Bookmark {
+export interface Bookmark {
     /**
      * Unique identifier for the bookmark.
      */
@@ -85,7 +85,7 @@ interface Bookmark {
 /**
  * Represents a folder within the Nextcloud bookmark system.
  */
-interface BookmarkFolder {
+export interface BookmarkFolder {
     /**
      * Unique identifier for the folder.
      */
@@ -112,12 +112,12 @@ interface BookmarkFolder {
     userDisplayName: string;
 }
 
-type FolderTree = FolderTreeNode[]
+export type FolderTree = FolderTreeNode[]
 
 /**
  * A stripped-down version of a folder, used for displaying folder hierarchies.
  */
-interface FolderTreeNode {
+export interface FolderTreeNode {
     /**
      * Unique identifier for the folder.
      */
@@ -142,9 +142,9 @@ interface FolderTreeNode {
 /**
  * Represents a simplified bookmark used in folder or bookmark APIs.
  */
-interface SimpleBookmark {
+export interface SimpleBookmark {
     /**
-     * Type of content, always "bookmark" for this interface.
+     * export type of content, always "bookmark" for this export interface.
      */
     type: 'bookmark';
 
@@ -167,9 +167,9 @@ interface SimpleBookmark {
 /**
  * Represents a simplified folder used in folder or bookmark APIs.
  */
-interface SimpleBookmarkFolder {
+export interface SimpleBookmarkFolder {
     /**
-     * Type of content, always "folder" for this interface.
+     * export type of content, always "folder" for this export interface.
      */
     type: 'folder';
 
@@ -189,20 +189,20 @@ interface SimpleBookmarkFolder {
     userId: string;
 }
 
-interface SimpleBookmarkOrderNode{
+export interface SimpleBookmarkOrderNode {
     type: 'folder' | 'bookmark';
     id: number
     children?: SimpleBookmarkOrderNode[]
 }
 
-interface FolderShare{
+export interface FolderShare {
     id: number,
     folderId: number,
     participant: string,
     type: number,
     canWrite: boolean,
     canShare: boolean
-  }
+}
 
 
 /**
@@ -212,9 +212,9 @@ interface FolderShare{
  */
 
 /**
- * Interface representing the query parameters for fetching bookmarks.
+ * export interface representing the query parameters for fetching bookmarks.
  */
-interface BookmarkSearchParams {
+export interface BookmarkSearchParams {
 
     /**
      * An array of tags that bookmarks should have.
@@ -297,7 +297,7 @@ interface BookmarkSearchParams {
 /**
  * Represents the query parameters for fetching folders.
  */
-interface FolderSearchParams {
+export interface FolderSearchParams {
     /**
     * The id of the folder whose contents to retrieve (Default: -1, which is the root folder)
     */
@@ -312,7 +312,7 @@ interface FolderSearchParams {
 /**
 * Represents the request body for creating a new bookmark.
 */
-interface CreateBookmarkPayload {
+export interface CreateBookmarkPayload {
     /**
      * The URL the bookmark points to.
      * Can be an HTTP, FTP, file, or JavaScript link.
@@ -352,7 +352,7 @@ interface CreateBookmarkPayload {
 /**
   * Represents the request body for updating an existing bookmark.
   */
-interface UpdateBookmarkPayload {
+export interface UpdateBookmarkPayload {
     /**
      * The URL the bookmark points to.
      * Optional field, can be updated if the bookmark URL changes.
@@ -387,7 +387,7 @@ interface UpdateBookmarkPayload {
 /**
 * Represents the request body for creating a new bookmark.
 */
-interface CreateFolderPayload {
+export interface CreateFolderPayload {
     /**
      * The title of the bookmark.
      * This should be a short, human-readable label for the folder.
@@ -404,7 +404,7 @@ interface CreateFolderPayload {
 /**
 * Represents the request body for creating a new bookmark.
 */
-interface CreateFolderPayload {
+export interface CreateFolderPayload {
     /**
      * The title of the bookmark.
      * This should be a short, human-readable label for the folder.
@@ -421,7 +421,7 @@ interface CreateFolderPayload {
 /**
 * Represents the request body for creating a new bookmark.
 */
-interface UpdateFolderPayload {
+export interface UpdateFolderPayload {
     /**
      * The title of the bookmark.
      * This should be a short, human-readable label for the folder.
@@ -438,14 +438,14 @@ interface UpdateFolderPayload {
 /**
 * Represents the request body for creating a Share of a folder.
 */
-interface CreateFolderSharePayload{
+export interface CreateFolderSharePayload {
     /**
      * The id of whom to share.
      */
     participant: string;
 
     /**
-     * The type of sharee.
+     * The export type of sharee.
      * Currently either 1 if it’s a group, or 0 if it’s a single user;
      */
     type: 0 | 1;
@@ -464,7 +464,7 @@ interface CreateFolderSharePayload{
 /**
 * Represents the request body for creating a Share of a folder.
 */
-interface UpdateFolderSharePayload{
+export interface UpdateFolderSharePayload {
     /**
      * Defines the write access.
      */
@@ -479,7 +479,7 @@ interface UpdateFolderSharePayload{
 /**
 * Represents the request body for setting a new order of elements.
 */
-interface SetFolderContentOrderPayload {
+export interface SetFolderContentOrderPayload {
     data: SimpleBookmarkOrderNode[]
 }
 
@@ -489,43 +489,43 @@ interface SetFolderContentOrderPayload {
  * *******************************************    
  */
 
-type BookmarkStatus = 'success' | 'error';
+export type BookmarkStatus = 'success' | 'error';
 
-interface EmptyBookmarkResponse {
+export interface EmptyBookmarkResponse {
     status: BookmarkStatus
 }
 
-interface BaseBookmarkItemResponse<T> {
+export interface BaseBookmarkItemResponse<T> {
     status: BookmarkStatus
     item: T
 
 }
-interface BaseBookmarkDataResponse<T> {
+export interface BaseBookmarkDataResponse<T> {
     status: BookmarkStatus
     data: T
 }
 
-type BookmarksResponse = BaseBookmarkDataResponse<Bookmark[]>
+export type BookmarksResponse = BaseBookmarkDataResponse<Bookmark[]>
 
-type BookmarkResponse = BaseBookmarkItemResponse<Bookmark>
+export type BookmarkResponse = BaseBookmarkItemResponse<Bookmark>
 
-type TagsResponse = string[]
+export type TagsResponse = string[]
 
-type FolderTreeResponse = BaseBookmarkDataResponse<FolderTree>
+export type FolderTreeResponse = BaseBookmarkDataResponse<FolderTree>
 
-type FolderResponse = BaseBookmarkItemResponse<BookmarkFolder>
+export type FolderResponse = BaseBookmarkItemResponse<BookmarkFolder>
 
-type FolderHashResponse = BaseBookmarkDataResponse<strin>
+export type FolderHashResponse = BaseBookmarkDataResponse<strin>
 
-type FolderContentOrderResponse = BaseBookmarkDataResponse<SimpleBookmarkOrderNode[]>
+export type FolderContentOrderResponse = BaseBookmarkDataResponse<SimpleBookmarkOrderNode[]>
 
-type FolderContentResponse = BaseBookmarkDataResponse<(SimpleBookmark | SimpleBookmarkFolder)[]>
+export type FolderContentResponse = BaseBookmarkDataResponse<(SimpleBookmark | SimpleBookmarkFolder)[]>
 
-type FolderContentCountResponse = BaseBookmarkItemResponse<number>
+export type FolderContentCountResponse = BaseBookmarkItemResponse<number>
 
-type FolderShareResponse = BaseBookmarkItemResponse<FolderShare>
+export type FolderShareResponse = BaseBookmarkItemResponse<FolderShare>
 
-type FolderSharesResponse = BaseBookmarkDataResponse<FolderShare[]>
+export type FolderSharesResponse = BaseBookmarkDataResponse<FolderShare[]>
 
 
 

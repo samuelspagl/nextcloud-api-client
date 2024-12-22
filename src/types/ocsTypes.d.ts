@@ -1,4 +1,4 @@
-interface OcsMeta{
+export interface OcsMeta{
     status: string
     statuscode: number
     message?: string
@@ -13,4 +13,4 @@ interface OcsBaseResponse<T>{
     }
 }
 
-type EmptyOcsResponse = OcsBaseResponse<[]>
+export type EmptyOcsResponse = OcsBaseResponse<[]>

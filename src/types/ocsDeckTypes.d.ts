@@ -2,17 +2,17 @@
 //             Models
 // ------------------------------
 
-interface CardCommentMention {
+export interface CardCommentMention {
     mentionId: string;
     mentionType: "user" | "team" | "role"; // Adjust based on possible mention types
     mentionDisplayName: string;
 }
 
-interface CardComment extends CardCommentChild {
+export interface CardComment extends CardCommentChild {
     replyTo: CardCommentBase
 }
 
-interface CardCommentBase {
+export interface CardCommentBase {
     id: number;
     objectId: number;
     message: string;
@@ -23,7 +23,7 @@ interface CardCommentBase {
     mentions: Mention[];
 }
 
-interface DeckSession {
+export interface DeckSession {
     token: string
 }
 
@@ -31,25 +31,25 @@ interface DeckSession {
 //             Requests
 // ------------------------------
 
-interface OcsCardCreateCommentPayload{
+export interface OcsCardCreateCommentPayload{
     message: string;
     parentId?: number | null 
 }
 
-interface OcsCardUpdateCommentPayload{
+export interface OcsCardUpdateCommentPayload{
     message: string;
 }
 
-interface OcsStartDeckSessionPayload {
+export interface OcsStartDeckSessionPayload {
     boardId: number
 }
 
-interface OcsSyncDeckSessionPayload{
+export interface OcsSyncDeckSessionPayload{
     boardId: number;
     token: string;
 }
 
-interface OcsCloseDeckSessionPayload{
+export interface OcsCloseDeckSessionPayload{
     boardId: number;
     token: string;
 }
@@ -59,7 +59,7 @@ interface OcsCloseDeckSessionPayload{
 // ------------------------------
 
 
-type OcsCardCommentsResponse = OcsBaseResponse<CardComment[]>
-type OcsCardCommentResponse = OcsBaseResponse<CardComment>
+export type OcsCardCommentsResponse = OcsBaseResponse<CardComment[]>
+export type OcsCardCommentResponse = OcsBaseResponse<CardComment>
 
-type OcsDeckSessionResponse = OcsBaseResponse<DeckSession>
+export type OcsDeckSessionResponse = OcsBaseResponse<DeckSession>
