@@ -51,7 +51,7 @@ test("Get Bookmark Image", async () => {
     const client = setupBookmarkClient()
 
     try{
-        const response = await client.getBookmarkImage(182)
+        const response = await client.getBookmarkImage(process.env.BOOKMARK_ID_IMAGE)
         expect(response).toBeInstanceOf(Blob)
         const fileUrl = URL.createObjectURL(response);
     }catch(e){
@@ -63,7 +63,7 @@ test("Get Bookmark Favicon", async () => {
     const client = setupBookmarkClient()
 
     try{
-        const response = await client.getBookmarkFavicon(181)
+        const response = await client.getBookmarkFavicon(process.env.BOOKMARK_ID_IMAGE)
         expect(response).toBeInstanceOf(Blob)
         const fileUrl = URL.createObjectURL(response);
     }catch(e){
