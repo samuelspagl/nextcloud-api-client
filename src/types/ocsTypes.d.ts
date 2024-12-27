@@ -6,7 +6,7 @@ export interface OcsMeta{
     itemsperpage?: string
 }
 
-interface OcsBaseResponse<T>{
+export interface OcsBaseResponse<T>{
     ocs:{
         meta: OcsMeta
         data: T
