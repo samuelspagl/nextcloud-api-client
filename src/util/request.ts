@@ -21,14 +21,15 @@ export async function request<T>(url: string, options: RequestOptions): Promise<
   const { basicAuth, mapError, ...fetchOptions } = options;
 
   // Create the Basic Authentication header if basicAuth is provided
-  const headers: HeadersInit = {
+  const headersInit: HeadersInit = {
     'Content-Type': 'application/json',
     ...fetchOptions.headers,
   };
+  const headers = new Headers(headersInit);
 
   if(basicAuth) {
     const authHeader = 'Basic ' + Buffer.from(`${basicAuth.username}:${basicAuth.password}`).toString('base64');
-    headers['Authorization'] = authHeader;
+    headers.set('Authorization', authHeader);
   }
   // Make the request using ofetch
   const response = await ofetch(url, {

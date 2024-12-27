@@ -1,0 +1,22 @@
+name: Testing
+on: [pull_request]
+jobs:
+  bun-test:
+    name: Bun Testing
+    runs-on: ubuntu-latest
+    environment:  Testing - Env
+    steps:
+      # ...
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      # run any `bun` or `bunx` command
+      - run: bun install
+      - run: bun test --coverage
+        env:
+          NC_PASSWORD: ${{ secrets.NC_PASSWORD1 }}
+          NC_PASSWORD2: ${{ secrets.NC_PASSWORD2 }}
+          NC_USER: ${{ vars.NC_USER1 }}
+          NC_USER2: ${{ vars.NC_USER2 }}
+          NC_SERVER: ${{ vars.NC_SERVER }}
+          BOOKMARK_ID_IMAGE: ${{ vars.BOOKMARK_ID_IMAGE }}

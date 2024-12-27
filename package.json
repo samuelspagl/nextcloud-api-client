@@ -1,1 +1,43 @@
-{ "dependencies": { "@types/node": "^22.10.2", "ofetch": "^1.4.1" } }
+{
+    "name": "@samuelspagl/nc-api-client",
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
+    "type": "module",
+    "version": "0.0.1-alpha-3",
+    "description": "A simple API client for Nextcloud Apps.",
+    "dependencies": {
+        "@types/node": "^22.10.2",
+        "ofetch": "^1.4.1"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "scripts": {
+        "build": "bun run unbuild",
+        "prepack": "bun run unbuild"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/samuelspagl/nextcloud-api-client"
+    },
+    "keywords": [
+        "Nextcloud",
+        "API",
+        "client",
+        "typescript",
+        "bookmarks",
+        "deck"
+    ],
+    "author": "Samuel Spagl",
+    "license": "MIT",
+    "files": [
+        "dist"
+    ],
+    "devDependencies": {
+        "bun-plugin-dts": "^0.3.0",
+        "unbuild": "^3.0.1"
+    }
+}
