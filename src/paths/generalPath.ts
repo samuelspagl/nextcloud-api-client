@@ -5,3 +5,5 @@ export const pathUserStatuses = "/ocs/v2.php/apps/user_status/api/v1/statuses"
 export const pathAutocompleteUsers = "/ocs/v2.php/core/autocomplete/get"
 
 export const directDownloadLink = "/ocs/v2.php/apps/dav/api/v1/direct"
+
+export const pathUserAvatar = (username: string, pixel: number = 256) => `/index.php/avatar/${username}/${pixel}`

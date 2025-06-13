@@ -28,6 +28,9 @@ export const pathOcsGetConfig = "/api/v1.0/config"
 export const pathOcsCardComments = (cardId: number) => `/cards/${cardId}/comments`
 export const pathOcsCardCommentById = (cardId: number, commentId: number) => `/cards/${cardId}/comments/${commentId}`
 
+export const pathOcsUpcomingCards = "/ocs/v2.php/apps/deck/api/v1.0/overview/upcoming"
+export const pathOcsSearchCards = "/ocs/v2.php/apps/deck/api/v1.0/search"
+
 export const pathOcsCreateSession = "/session/create"
 export const pathOcsSyncSession = "/session/sync"
 export const pathOcsCloseSession = "/session/close"

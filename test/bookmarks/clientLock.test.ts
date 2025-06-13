@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { setupBookmarkClient } from "../util/util";
+import { setupBookmarkClient } from "../util/clients";
 
 describe("Create and release client lock", () => {
     const client = setupBookmarkClient()
@@ -11,7 +11,7 @@ describe("Create and release client lock", () => {
 
     test.todo("Try to change something while lock is active", async () => {
         try{
-            await client.createFolder({title: "Test"})
+            await client.createFolder({title: "Test", parentFolder: -1})
             expect(true).toBe(false)
         }
         catch(e){
@@ -25,7 +25,7 @@ describe("Create and release client lock", () => {
     })
 
     test.todo("Try to change something after lock is released", async () => {
-        const response = await client.createFolder({title: "Test"})
+        const response = await client.createFolder({title: "Test", parentFolder: -1})
         expect(response.title).toBe("Test")
     })
 })

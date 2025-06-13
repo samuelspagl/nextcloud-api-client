@@ -9,7 +9,7 @@ export const pathBookmarkFavicon = (bookmarkId: number) =>                  `${b
 export const pathBookmarkClicked =                                          `${bookmarkPrefix}/public/rest/v2/bookmark/click`
 
 export const pathTag: string =                                              `${bookmarkPrefix}/public/rest/v2/tag`
-export const pathTagByName = (tagName: string) =>                               `${bookmarkPrefix}/public/rest/v2/tag/${tagName}`
+export const pathTagByName = (tagName: string) =>                           `${bookmarkPrefix}/public/rest/v2/tag/${tagName}`
 
 export const pathFolder =                                                   `${bookmarkPrefix}/public/rest/v2/folder`
 export const pathFolderById = (folderId: number) =>                         `${bookmarkPrefix}/public/rest/v2/folder/${folderId}`

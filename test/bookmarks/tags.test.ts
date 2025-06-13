@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { setupBookmarkClient } from "../util/util";
+import { setupBookmarkClient } from "../util/clients";
 
 describe("Create, Fetch, Update and Delete Tags", () =>{
     const client = setupBookmarkClient()

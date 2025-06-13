@@ -1,6 +1,6 @@
 import { expect, test, describe } from "bun:test";
-import { setupNotesClient } from "../util/util";
 import { NotePayload, NotesSettingsPayload } from "../../src/types/notesTypes";
+import { setupNotesClient } from "../util/clients";
 
 describe("Standard Note Scenarios", () => {
 
@@ -8,7 +8,7 @@ describe("Standard Note Scenarios", () => {
     let noteId: number
 
     test("Create a new Note", async () => {
-        const payload: NotePayload = {
+        const payload = {
             title: "Test Note",
             content: "This is a test note"
         }
@@ -25,7 +25,7 @@ describe("Standard Note Scenarios", () => {
     })
 
     test("Update the Notes title and content", async () => {
-        const payload: NotePayload = {
+        const payload = {
             title: "Updated Note",
             content: "This is an updated note"
         }

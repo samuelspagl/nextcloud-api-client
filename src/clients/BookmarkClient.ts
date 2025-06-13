@@ -1,9 +1,6 @@
-import { FetchResponse, ResolvedFetchOptions } from "ofetch"
-import { BaseApiClient } from "../../util/baseClient"
-import { ApiError } from "../../util/error"
-import { pathBookmark, pathBookmarkById, pathBookmarkClicked, pathBookmarkFavicon, pathBookmarkImage, pathClientLock, pathFolder, pathFolderBookmark, pathFolderById, pathFolderByIdHash, pathFolderChildOrder, pathFolderContent, pathFolderContentCount, pathFolderShare, pathShareById, pathTag, pathTagByName } from "./bookmarkPaths"
-import { Bookmark, BookmarkFolder, BookmarkResponse, BookmarkSearchParams, BookmarksResponse, BookmarkStatus, CreateBookmarkPayload, CreateFolderPayload, CreateFolderSharePayload, EmptyBookmarkResponse, FolderContentCountResponse, FolderContentOrderResponse, FolderContentResponse, FolderHashResponse, FolderResponse, FolderSearchParams, FolderShare, FolderShareResponse, FolderSharesResponse, FolderTree, FolderTreeResponse, SetFolderContentOrderPayload, SimpleBookmark, SimpleBookmarkFolder, SimpleBookmarkOrderNode, TagsResponse, UpdateBookmarkPayload, UpdateFolderPayload, UpdateFolderSharePayload } from "../../types/bookmarkTypes"
-
+import { pathBookmark, pathBookmarkById, pathBookmarkImage, pathBookmarkFavicon, pathBookmarkClicked, pathTag, pathTagByName, pathFolder, pathFolderById, pathFolderByIdHash, pathFolderBookmark, pathFolderChildOrder, pathFolderContent, pathFolderContentCount, pathFolderShare, pathShareById, pathClientLock } from "../paths/bookmarkPath"
+import { BookmarkSearchParams, Bookmark, BookmarksResponse, CreateBookmarkPayload, BookmarkResponse, UpdateBookmarkPayload, BookmarkStatus, EmptyBookmarkResponse, TagsResponse, FolderSearchParams, FolderTree, FolderTreeResponse, CreateFolderPayload, BookmarkFolder, FolderResponse, UpdateFolderPayload, FolderHashResponse, SimpleBookmarkOrderNode, FolderContentOrderResponse, SetFolderContentOrderPayload, SimpleBookmark, SimpleBookmarkFolder, FolderContentResponse, FolderContentCountResponse, CreateFolderSharePayload, FolderShare, FolderShareResponse, FolderSharesResponse, UpdateFolderSharePayload } from "../types/bookmarkTypes"
+import { BaseApiClient } from "../util/BaseClient"
 
 export class BookmarkClient extends BaseApiClient{
 

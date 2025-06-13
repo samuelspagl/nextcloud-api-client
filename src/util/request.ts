@@ -19,7 +19,7 @@ export interface RequestOptions extends FetchOptions {
 // Helper function to make API requests with optional Basic Authentication using ofetch
 export async function request<T>(url: string, options: RequestOptions): Promise<T> {
   const { basicAuth, mapError, ...fetchOptions } = options;
-
+  
   // Create the Basic Authentication header if basicAuth is provided
   const headersInit: HeadersInit = {
     'Content-Type': 'application/json',
@@ -28,7 +28,8 @@ export async function request<T>(url: string, options: RequestOptions): Promise<
   const headers = new Headers(headersInit);
 
   if(basicAuth) {
-    const authHeader = 'Basic ' + Buffer.from(`${basicAuth.username}:${basicAuth.password}`).toString('base64');
+    // const authHeader = 'Basic ' + Buffer.from(`${basicAuth.username}:${basicAuth.password}`).toString('base64');
+    const authHeader = 'Basic ' + btoa(`${basicAuth.username}:${basicAuth.password}`);
     headers.set('Authorization', authHeader);
   }
   // Make the request using ofetch

@@ -1,5 +1,6 @@
 import { expect, test, describe } from "bun:test";
-import { setupBookmarkClient } from "../util/util";
+import { setupBookmarkClient } from "../util/clients";
+import { CreateBookmarkPayload, CreateFolderPayload, SetFolderContentOrderPayload } from "../../src/types/bookmarkTypes";
 
 test("Get full folder tree", () => {
     const client = setupBookmarkClient()
@@ -12,8 +13,9 @@ describe("Create, Update, Get and Delete Folder", () => {
     let folderId: number
 
     test("Create Folder", async () => {
-        const payload = {
-            title: "Test Folder"
+        const payload: CreateFolderPayload = {
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         expect(response.title).toBe(payload.title)
@@ -47,17 +49,18 @@ describe("Create a hash of a folder and track it", () => {
 
     test("Create Folder", async () => {
         const payload = {
-            title: "Test Folder"
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         folderId = response.id
     })
 
     test("Create Bookmark", async () => {
-        const payload = {
+        const payload: CreateBookmarkPayload = {
             url: "https://spagl-media.de/",
             title: "Some title",
-            folders: [folderId]
+            folders: [folderId.toString()],
         }
         const response = await client.createBookmark(payload)
         expect(response.folders).toContain(folderId)
@@ -94,7 +97,8 @@ describe("Get folder count", () => {
 
     test("Create Folder", async () => {
         const payload = {
-            title: "Test Folder"
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         folderId = response.id
@@ -118,7 +122,8 @@ describe("Add and remove bookmark from folder",async  ()=> {
 
     test("Create Folder", async () => {
         const payload = {
-            title: "Test Folder"
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         folderId = response.id
@@ -164,17 +169,18 @@ describe("Folder content order scenarios", async () => {
 
     test("Create Folder", async () => {
         const payload = {
-            title: "Test Folder"
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         folderId = response.id
     })
 
     test("Create Bookmarks", async () => {
-        const payload1 = {
+        const payload1: CreateBookmarkPayload = {
             url: "https://spagl-media.de/",
             title: "Some title",
-            folders: [folderId]
+            folders: [folderId.toString()],
         }
         const response1 = await client.createBookmark(payload1)
         bookmarkId1 = response1.id
@@ -182,7 +188,7 @@ describe("Folder content order scenarios", async () => {
         const payload2 = {
             url: "https://spagl-media.de/1",
             title: "Some title",
-            folders: [folderId]
+            folders: [folderId.toString()]
         }
         const response2 = await client.createBookmark(payload2)
         bookmarkId2 = response2.id
@@ -190,7 +196,7 @@ describe("Folder content order scenarios", async () => {
         const payload3 = {
             url: "https://spagl-media.de/2",
             title: "Some title",
-            folders: [folderId]
+            folders: [folderId.toString()]
         }
         const response3 = await client.createBookmark(payload3)
         bookmarkId3 = response3.id
@@ -206,7 +212,7 @@ describe("Folder content order scenarios", async () => {
 
 
     test("Move Bookmark 3 to first position", async () => {
-        const payload = {data:[
+        const payload: SetFolderContentOrderPayload = {data:[
             {
                 type: 'bookmark',
                 id: bookmarkId3

@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { setupBookmarkClient } from "../util/util";
+import { setupBookmarkClient, getEnvironmentVariable } from "../util/clients";
 
 test("Query Bookmarks", async () => {
     const client = setupBookmarkClient()
@@ -51,7 +51,7 @@ test("Get Bookmark Image", async () => {
     const client = setupBookmarkClient()
 
     try{
-        const response = await client.getBookmarkImage(process.env.BOOKMARK_ID_IMAGE)
+        const response = await client.getBookmarkImage(Number(getEnvironmentVariable("BOOKMARK_ID_IMAGE")))
         expect(response).toBeInstanceOf(Blob)
         const fileUrl = URL.createObjectURL(response);
     }catch(e){
@@ -63,7 +63,7 @@ test("Get Bookmark Favicon", async () => {
     const client = setupBookmarkClient()
 
     try{
-        const response = await client.getBookmarkFavicon(process.env.BOOKMARK_ID_IMAGE)
+        const response = await client.getBookmarkFavicon(Number(getEnvironmentVariable("BOOKMARK_ID_IMAGE")))
         expect(response).toBeInstanceOf(Blob)
         const fileUrl = URL.createObjectURL(response);
     }catch(e){
