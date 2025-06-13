@@ -1,23 +1,25 @@
 import { expect, test, describe } from "bun:test";
-import { setupBookmarkClient } from "../util/util";
+import { setupBookmarkClient, getEnvironmentVariable } from "../util/clients";
+import { CreateFolderSharePayload } from "../../src/types/bookmarkTypes";
 
 describe("Create, Get, Update and Delete Shares", () => {
 
     const client = setupBookmarkClient()
     let shareId: number
-    const shareeUserId = process.env.NC_USER2
+    const shareeUserId = getEnvironmentVariable("NC_USER2")
     let folderId: number
 
     test("Create Folder", async () => {
         const payload = {
-            title: "Test Folder"
+            title: "Test Folder",
+            parentFolder: -1
         }
         const response = await client.createFolder(payload)
         folderId = response.id
     })
 
     test("Create folder share", async () => {
-        const payload = {
+        const payload: CreateFolderSharePayload = {
             participant: shareeUserId,
             type: 0,
             canWrite: false,

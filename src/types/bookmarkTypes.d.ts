@@ -56,7 +56,7 @@ export interface Bookmark {
     /**
      * Number of times this bookmark has been clicked or accessed.
      */
-    clickCount: number;
+    clickcount: number;
 
     /**
      * Boolean indicating if the bookmark's URL is reachable.
@@ -247,7 +247,7 @@ export interface BookmarkSearchParams {
      * 'url', 'title', 'description', and 'tags'.
      * Only bookmarks that match any of the provided search terms will be returned.
      */
-    search?: string[];
+    'search[]'?: string;
 
     /**
      * Defines whether all search terms must be present ('and') or if one match is sufficient ('or').
@@ -404,23 +404,6 @@ export interface CreateFolderPayload {
 /**
 * Represents the request body for creating a new bookmark.
 */
-export interface CreateFolderPayload {
-    /**
-     * The title of the bookmark.
-     * This should be a short, human-readable label for the folder.
-     */
-    title: string;
-
-    /**
-     * The id of the parent folder for the new folder.
-     * The root folder is defined by -1.
-     */
-    parentFolder?: number | -1
-}
-
-/**
-* Represents the request body for creating a new bookmark.
-*/
 export interface UpdateFolderPayload {
     /**
      * The title of the bookmark.
@@ -515,7 +498,7 @@ export type FolderTreeResponse = BaseBookmarkDataResponse<FolderTree>
 
 export type FolderResponse = BaseBookmarkItemResponse<BookmarkFolder>
 
-export type FolderHashResponse = BaseBookmarkDataResponse<strin>
+export type FolderHashResponse = BaseBookmarkDataResponse<string>
 
 export type FolderContentOrderResponse = BaseBookmarkDataResponse<SimpleBookmarkOrderNode[]>
 

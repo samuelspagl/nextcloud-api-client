@@ -1,5 +1,3 @@
-import { OcsBaseResponse } from "./ocsTypes";
-
 export interface NextcloudInstance {
     version: Version;
     capabilities: Capabilities;

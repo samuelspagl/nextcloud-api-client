@@ -1,2 +1,6 @@
-export { NextcloudClient } from './apiClient'
-export { AuthClient as NextcloudAuthClient } from './scopes'
+export { DeckClient } from './clients/DeckClient'
+export { BookmarkClient } from './clients/BookmarkClient'
+export { AuthClient } from './clients/AuthClient'
+export { NotesClient } from './clients/NotesClient'
+export { GeneralClient } from './clients/GeneralClient'
+export { oAuthClient } from './clients/oAuthClient'

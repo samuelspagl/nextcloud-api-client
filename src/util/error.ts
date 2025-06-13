@@ -1,11 +1,33 @@
+import { FetchResponse, ResolvedFetchOptions } from "ofetch";
+
 // Custom Error class to store error details
-export interface ErrorDetails{
-    code: number;
-    message: string;
-    url: string;
-    timestamp: string;
-    body?: any;
-    details?: any;
+export interface ErrorDetails {
+  code: number;
+  message: string;
+  url: string;
+  timestamp: string;
+  body?: any;
+  details?: any;
+}
+
+export async function buildErrorObject(request: RequestInfo, response: FetchResponse<any>, options: ResolvedFetchOptions): Promise<ApiError> {
+  return new ApiError({
+    code: response.status,
+    message: response.statusText,
+    url: request.toString(),
+    timestamp: new Date().toISOString(),
+    details: response._data
+  })
+}
+
+export async function buildOcsErrorObject(request: RequestInfo, response: FetchResponse<any>, options: ResolvedFetchOptions): Promise<ApiError> {
+  return new ApiError({
+    code: response.status,
+    message: response.statusText,
+    url: request.toString(),
+    timestamp: new Date().toISOString(),
+    details: response._data
+  })
 }
 
 export class ApiError extends Error {

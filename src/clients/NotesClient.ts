@@ -1,6 +1,6 @@
-import { NotesSearchParams, Note, NotePayload, NotesSettings, NotesSettingsPayload } from "../../types/notesTypes";
-import { BaseApiClient } from "../../util/baseClient";
-import { pathNotes, pathNotesById, pathNotesSettings } from "./notesPaths";
+import { pathNotes, pathNotesById, pathNotesSettings } from "../paths/notesPath"
+import { NotesSearchParams, Note, NotePayload, NotesSettings, NotesSettingsPayload } from "../types/notesTypes"
+import { BaseApiClient } from "../util/BaseClient"
 
 export class NotesClient extends BaseApiClient{
 

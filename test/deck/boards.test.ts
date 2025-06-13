@@ -1,6 +1,6 @@
 import { expect, test, describe } from "bun:test";
-import { setupDeckClient } from "../util/util";
-import { CreateBoardPayload, CreateCardPayload, CreateStackPayload, UpdateBoardPayload, UpdateCardPayload, Card, Stack, Board } from "../../src/types/deckTypes";
+import { CreateBoardPayload, CreateCardPayload, CreateStackPayload, UpdateBoardPayload, UpdateCardPayload, Card, Stack, Board, CreateAclRulePayload } from "../../src/types/deckTypes";
+import { setupDeckClient, getEnvironmentVariable } from "../util/clients";
 
 describe("Standard Deck Tests", () => {
 
@@ -31,7 +31,7 @@ describe("Standard Deck Tests", () => {
     })
 
     test("Update the Board", async () => {
-        const payload: UpdateBoardPayload = {
+        const payload = {
             title: "Updated Board",
             color: "55ab6c"
         }
@@ -46,7 +46,7 @@ describe("Standard Deck Tests", () => {
     })
 
     test("Create Stack", async () => {
-        const payload: CreateStackPayload = {
+        const payload = {
             title: "Test Stack",
             order: 999
                 }
@@ -90,15 +90,25 @@ describe("Standard Deck Tests", () => {
     })
 
     test("Update Card", async () => {
-        const payload: UpdateCardPayload = {
+        const payload = {
             title: "Updated Card",
-            owner: process.env.NC_USER,
+            owner: getEnvironmentVariable("NC_USER"),
             type: "plain",
             description: "Some description"
         }
-        const response = await client.updateCard(boardId, stackId, cardId, payload)
+        const response = await client.updateCard(boardId, stackId, cardId, payload as UpdateCardPayload)
         expect(response.title).toBe(payload.title)
         expect(response.description).toBe(payload.description)
+    })
+
+    test("Get Upcoming Cards", async () => {
+        const response = await client.getUpcomingCards()
+        expect(response.nodue)
+    })
+
+    test("Search for Cards", async () => {
+        const response = await client.queryCards("Test")
+        expect(response.length == 1)
     })
 
     test("Delete Card", async () => {
@@ -121,6 +131,21 @@ describe("Standard Deck Tests", () => {
     })
 
     test("Delete Board", async () => {
+        const response = await client.deleteBoard(boardId)
+        if (response !== undefined) {
+            console.warn("⚠️  The delete stack endpoint returns the card details unlike listed in the API documentation. See https://deck.readthedocs.io/en/latest/API/#delete-boardsboardidstacksstackidcardscardid-delete-a-card")
+            console.debug("DELETE /boards/{boardId} returns: ", response)
+            expect(response)
+        }
+    })
+
+    test("Undo Delete Board", async () => {
+        const response = await client.undoDeleteBoard(boardId)
+        const board = await client.getBoard(boardId)
+        expect(board.title).toBe("Updated Board")
+    })
+
+    test("Delete Board Second Time", async () => {
         const response = await client.deleteBoard(boardId)
         if (response !== undefined) {
             console.warn("⚠️  The delete stack endpoint returns the card details unlike listed in the API documentation. See https://deck.readthedocs.io/en/latest/API/#delete-boardsboardidstacksstackidcardscardid-delete-a-card")

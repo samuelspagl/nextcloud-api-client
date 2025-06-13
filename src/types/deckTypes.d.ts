@@ -64,6 +64,10 @@ export interface Label {
 
     /** Unique identifier for the label */
     id: number;
+
+    lastModified: number;
+
+    ETag: string;
 }
 
 /**
@@ -74,7 +78,7 @@ export interface Board {
     title: string;
 
     /** The owner of the board, represented by a User object */
-    owner: User;
+    owner: DeckUser;
 
     /** The color of the board, represented as a hex color code */
     color: string;
@@ -107,7 +111,7 @@ export interface Board {
     lastModified: number;
 
     /** Optional settings specific to the board, such as notification preferences */
-    settings?: Settings;
+    settings?: DeckSettings;
 }
 
 /**
@@ -155,14 +159,16 @@ export interface Card {
     /** Timestamp of the last modification made to the card */
     lastModified: number;
 
+    lastEditor: string;
+
     /** Timestamp of the card creation */
     createdAt: number;
 
     /** List of labels associated with the card, or null if no labels */
-    labels: string[] | null;
+    labels: Label[] | null;
 
     /** List of users assigned to the card, or null if no users are assigned */
-    assignedUsers: string[] | null;
+    assignedUsers: CardAssignedUser[] | null;
 
     /** List of attachments associated with the card, or null if no attachments */
     attachments: any[] | null;
@@ -171,7 +177,12 @@ export interface Card {
     attachmentCount: number | null;
 
     /** The ID of the user who owns the card */
-    owner: string;
+    owner: {
+        displayname: string
+        primaryKey: string
+        type: number
+        uid: string
+    };
 
     /** The order of the card within the stack, used for sorting */
     order: number;
@@ -179,11 +190,15 @@ export interface Card {
     /** Whether the card is archived */
     archived: boolean;
 
+    done: boolean;
+
     /** The due date of the card in ISO 8601 format, or null if no due date is set */
     duedate: string | null;
 
     /** Timestamp when the card was deleted (0 if not deleted) */
     deletedAt: number;
+
+    commentsCount: number;
 
     /** The number of unread comments on the card */
     commentsUnread: number;
@@ -193,6 +208,26 @@ export interface Card {
 
     /** Flag indicating whether the card is overdue (1 if overdue, 0 if not) */
     overdue: number;
+
+    ETag: string
+}
+
+export interface UpcomingCard extends Card{
+    boardId?: number
+    board?: {
+        id: number
+        title: string
+    }
+}
+
+export interface SearchedCard extends Card{
+    boardId?: number
+    board?: {
+        id: number
+        title: string
+    }
+    relatedBoard: Board
+    relatedStack: Stack
 }
 
 /**
@@ -250,17 +285,30 @@ export interface Attachment {
 }
 
 
+export interface CardAssignedUser {
+    id: number
+    participant: {
+        primaryKey: string,
+        uid: string,
+        displayname: string,
+        type: number
+    }
+    cardId: number
+    type: number
+}
+
+
 
 // ------------------------------
 //            REQUESTS
 // ------------------------------
 
-export interface CreateBoardPayload{
+export interface CreateBoardPayload {
     title: string;
     color: string
 }
 
-export interface UpdateBoardPayload{
+export interface UpdateBoardPayload {
     title?: string;
     color?: string;
     archived?: false;
@@ -280,12 +328,12 @@ export interface UpdateAclRulePayload {
     permissionManage: boolean; // Setting if the participant has management permissions
 }
 
-export interface CreateStackPayload{
+export interface CreateStackPayload {
     title: string;
     order: number | 999;
 }
 
-export interface UpdateStackPayload{
+export interface UpdateStackPayload {
     title?: string;
     order?: number;
 }
@@ -337,12 +385,97 @@ export interface AclRuleResponse {
     id: number; // Unique identifier for the participant
 }
 
-export interface AssignUserResponse{
+export interface AssignUserResponse {
     id: number;
     participant: {
-      primaryKey: string;
-      uid: string;
-      displayname: string;
+        primaryKey: string;
+        uid: string;
+        displayname: string;
     }
     cardId: number;
 }
+
+// ------------------------------
+//             Models
+// ------------------------------
+
+import { SearchedCard, UpcomingCard } from "./deckTypes";
+import { OcsBaseResponse } from "./ocsTypes";
+
+export interface CardCommentMention {
+    mentionId: string;
+    mentionType: "user" | "team" | "role"; // Adjust based on possible mention types
+    mentionDisplayName: string;
+}
+
+export interface CardComment extends CardCommentBase {
+    replyTo: CardCommentBase
+}
+
+export interface CardCommentBase {
+    id: number;
+    objectId: number;
+    message: string;
+    actorId: string;
+    actorType: "users" | "teams"; // Adjust based on actual actor types
+    actorDisplayName: string;
+    creationDateTime: string; // ISO 8601 date format
+    mentions: CardCommentMention[];
+}
+
+export interface DeckSession {
+    token: string
+}
+
+// ------------------------------
+//             Requests
+// ------------------------------
+
+export interface OcsCardCreateCommentPayload{
+    message: string;
+    parentId?: number | null 
+}
+
+export interface OcsCardUpdateCommentPayload{
+    message: string;
+}
+
+export interface OcsStartDeckSessionPayload {
+    boardId: number
+}
+
+export interface OcsSyncDeckSessionPayload{
+    boardId: number;
+    token: string;
+}
+
+export interface OcsCloseDeckSessionPayload{
+    boardId: number;
+    token: string;
+}
+
+export interface OcsSearchCardQuery{
+    term: string
+    limit?: number
+}
+
+// ------------------------------
+//             Responses
+// ------------------------------
+
+
+export type OcsCardCommentsResponse = OcsBaseResponse<CardComment[]>
+export type OcsCardCommentResponse = OcsBaseResponse<CardComment>
+
+export type OcsDeckSessionResponse = OcsBaseResponse<DeckSession>
+
+export interface UpcomingCards {
+    nextSevenDays: UpcomingCard[];
+    tomorrow: UpcomingCard[];
+    today: UpcomingCard[];
+    overdue: UpcomingCard[];
+    nodue: UpcomingCard[];
+}
+
+export type OcsUpcomingCardsRespone = OcsBaseResponse<UpcomingCards>
+export type OcsSearchCardsResponse = OcsBaseResponse<SearchedCard[]>
