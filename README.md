@@ -15,6 +15,16 @@ I am not sure how much support I can give, but lets see.
 bun add @samuelspagl/nc-api-client
 ```
 
+## 🔧 Development Setup
+
+1. Clone the repository
+2. Install dependencies: `bun install`
+3. Copy environment template: `cp .env.example .env`
+4. Fill in your Nextcloud credentials in `.env`
+5. Copy bun config if needed: `cp bunfig.toml.example bunfig.toml`
+
+**⚠️ Security Note**: Use Nextcloud app passwords, not your main password. See [SECURITY.md](./SECURITY.md) for details.
+
 ## 📚 Features
 
 ### General Functions
