@@ -1,0 +1,8 @@
+[install]
+
+# Example bun configuration
+# Copy this to bunfig.toml and add your npm token if needed
+registry = { url = "https://registry.npmjs.org" }
+
+# If you need to publish packages, add your token:
+# registry = { url = "https://registry.npmjs.org", token = "your-npm-token-here" }
