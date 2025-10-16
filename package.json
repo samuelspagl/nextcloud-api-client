@@ -13,6 +13,10 @@
         ".": {
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs"
+        },
+        "./scopes": {
+            "import": "./dist/scopes/index.mjs",
+            "require": "./dist/scopes/index.cjs"
         }
     },
     "scripts": {
